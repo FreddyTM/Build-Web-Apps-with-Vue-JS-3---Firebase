@@ -10,7 +10,10 @@
     <h1>Hello, Vue :)</h1>
     <div id="app">
       <h2>I am the template now!</h2>
-      <p>{{title}} - {{author}} - {{age}}</p>
+      <div v-if="showBooks">
+        <p>{{title}} - {{author}} - {{age}}</p>
+      </div>
+      <!-- <p>{{title}} - {{author}} - {{age}}</p> -->
       <!-- Inline add functionality to elements -->
       <!-- <button v-on:click="age++">Increase Age</button> -->
       <!-- v-on:click = @click -->
@@ -18,6 +21,15 @@
       <button v-on:click="age--">Decrease Age</button>
       <!-- <div @click="title = 'Something else'">Change book title</div> -->
       <div @click="changeTitle('Oathbringer')">Change book title</div>
+      <button @click="toggleShowButtons">
+        <!-- if v-if evaluates to false, the element is taken out of the DOM-->
+        <span v-if="showBooks">Hide books</span>
+        <!-- <span v-if="!showBooks">Show books</span> -->
+        <span v-else>Show books</span>
+      </button>
+      <!-- if v-show evaluates to false, the element is still on the DOM and it's css is set to display: none-->
+      <!-- v-show is less time consuming than v-if. If an element has to hide & show very often, better use v-show -->
+      <div v-show="showBooks">Currently showing books</div>
     </div>
     <script src="app.js"></script>
   </body>
