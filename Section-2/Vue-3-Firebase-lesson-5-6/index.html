@@ -47,7 +47,7 @@
       <!-- Attribute binding -->
       <!-- v-bind:href = :href -->
       <a v-bind:href="url">Best website ever</a>
-      <h2>I am the template now!</h2>
+      <h2>ALL BOOKS</h2>
       <div v-if="showBooks">
         <ul>
           <!-- Dynamic classes -->
@@ -57,6 +57,17 @@
             <p>{{book.author}} -- Age: {{book.age}}</p>
           </li>
         </ul>
+        <hr />
+        <h2>ONLY FAVS</h2>
+        <ul>
+          <!-- Computed properties -->
+          <li v-for="book in filteredBooks" :class="{fav: book.isFav}" @click="toggleIsFav(book)">
+            <img :src="book.img" :alt="book.title" />
+            <h3>{{book.title}}</h3>
+            <p>{{book.author}} -- Age: {{book.age}}</p>
+          </li>
+        </ul>
+        <hr />
         <!-- <p>{{title}} - {{author}} - {{age}}</p> -->
       </div>
       <!-- <p>{{title}} - {{author}} - {{age}}</p> -->
