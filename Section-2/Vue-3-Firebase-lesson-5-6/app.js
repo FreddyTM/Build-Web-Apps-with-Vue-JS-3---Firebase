@@ -11,5 +11,12 @@ const app = Vue.createApp({
       age: 45,
     };
   },
+  methods: {
+    changeTitle(title) {
+      console.log('You clicked me');
+      /* this.title = 'Words of Randiance'; */
+      this.title = title;
+    },
+  },
 });
 app.mount('#app');

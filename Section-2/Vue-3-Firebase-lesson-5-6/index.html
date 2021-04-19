@@ -11,6 +11,13 @@
     <div id="app">
       <h2>I am the template now!</h2>
       <p>{{title}} - {{author}} - {{age}}</p>
+      <!-- Inline add functionality to elements -->
+      <!-- <button v-on:click="age++">Increase Age</button> -->
+      <!-- v-on:click = @click -->
+      <button v-on:click="age++">Increase Age</button>
+      <button v-on:click="age--">Decrease Age</button>
+      <!-- <div @click="title = 'Something else'">Change book title</div> -->
+      <div @click="changeTitle('Oathbringer')">Change book title</div>
     </div>
     <script src="app.js"></script>
   </body>
