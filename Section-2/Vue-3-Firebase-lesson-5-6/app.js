@@ -10,6 +10,8 @@ const app = Vue.createApp({
       title: 'The final empire',
       author: 'Brandon Sanderson',
       age: 45,
+      x: 0,
+      y: 0,
     };
   },
   methods: {
@@ -20,6 +22,16 @@ const app = Vue.createApp({
     },
     toggleShowButtons() {
       this.showBooks = !this.showBooks;
+    },
+    handleEvent(e, data) {
+      console.log(e, e.type);
+      if (data) {
+        console.log(data);
+      }
+    },
+    handleMouseMove(e) {
+      this.x = e.offsetX;
+      this.y = e.offsetY;
     },
   },
 });

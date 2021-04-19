@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Learning Vue</title>
     <script src="https://unpkg.com/vue@3.0.2"></script>
+    <style>
+      .box {
+        padding: 100px 0;
+        width: 400px;
+        text-align: center;
+        background: #ddd;
+        margin: 20px;
+        display: inline-block;
+      }
+    </style>
   </head>
   <body>
     <h1>Hello, Vue :)</h1>
@@ -27,9 +37,16 @@
         <!-- <span v-if="!showBooks">Show books</span> -->
         <span v-else>Show books</span>
       </button>
+
+      <!-- Mouse Events -->
       <!-- if v-show evaluates to false, the element is still on the DOM and it's css is set to display: none-->
       <!-- v-show is less time consuming than v-if. If an element has to hide & show very often, better use v-show -->
       <div v-show="showBooks">Currently showing books</div>
+      <!-- to prevent the event argument not to be the first argument of the function, use $event as the first argument -->
+      <div class="box" @mouseover="handleEvent($event, 5)">Mouseover (enter element area)</div>
+      <div class="box" @mouseleave="handleEvent">Mouseleave</div>
+      <div class="box" @dblclick="handleEvent">Double click</div>
+      <div class="box" @mousemove="handleMouseMove">Position: {{x}}, {{y}}</div>
     </div>
     <script src="app.js"></script>
   </body>
