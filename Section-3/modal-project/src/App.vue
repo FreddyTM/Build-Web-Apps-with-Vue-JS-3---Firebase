@@ -27,6 +27,7 @@ Validate vue-html <template> using eslint-plugin-vue -->
 
 <template>
   <h1>{{ title }}</h1>
+  <p>Welcome...</p>
   <!-- <input type="text" ref="name" />
   <button @click="handleClick">click me</button> -->
 
@@ -34,7 +35,12 @@ Validate vue-html <template> using eslint-plugin-vue -->
   <!-- <Modal header="Sign up for the Giveaway" text="Grab your ninja swag for half the price! " /> -->
   <!-- But it's better to bind the attributes -->
   <!-- <Modal header="Sign up for the Giveaway" text="Grab your ninja swag for half the price!" /> -->
-  <Modal :header="header" :text="text" theme="sale" />
+  <div v-if="showModal">
+    <Modal :header="header" :text="text" theme="sale" @close="toggleModal" />
+    <!-- the close event fires the function, but @close="toggleModal affects also the modal, because is inside the backdrop.
+    So we need a click event modifier to customize when we want the event to be fired -->
+  </div>
+  <button @click="toggleModal">Show modal</button>
 </template>
 
 <script>
@@ -47,6 +53,7 @@ export default {
       title: 'My First Vue App :)',
       header: 'Sign up for the Giveaway',
       text: 'Grab your ninja swag for half the price!',
+      showModal: false,
     };
   },
   methods: {
@@ -54,6 +61,9 @@ export default {
       console.log(this.$refs.name);
       this.$refs.name.classList.add('active');
       this.$refs.name.focus();
+    },
+    toggleModal() {
+      this.showModal = !this.showModal;
     },
   },
 };

@@ -1,5 +1,7 @@
 <template>
-  <div class="backdrop">
+  <!-- click event modifier to prevent that a click on any element inside the backdrop div could fire the event-->
+  <!-- if we click on the modal, it won't close, only if we click outside of it -->
+  <div class="backdrop" @click.self="closeModal">
     <div class="modal" :class="{ sale: theme === 'sale' }">
       <h1>{{ header }}</h1>
       <p>{{ text }}</p>
@@ -10,6 +12,13 @@
 <script>
 export default {
   props: ['header', 'text', 'theme'],
+  methods: {
+    /* closeModal() will fire a custom event to tell App.vue that we want to close the modal */
+    /* The name of the custom event can be whatever we want, in this case is 'close' */
+    closeModal() {
+      this.$emit('close');
+    },
+  },
 };
 </script>
 
