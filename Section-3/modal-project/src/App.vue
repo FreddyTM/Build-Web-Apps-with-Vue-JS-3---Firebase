@@ -1,7 +1,8 @@
 <template>
   <h1>{{ title }}</h1>
-  <input type="text" ref="name" />
-  <button @click="handleClick">click me</button>
+  <!-- <input type="text" ref="name" />
+  <button @click="handleClick">click me</button> -->
+  <Modal />
   <!-- [vue/no-multiple-template-root]
 The template root requires exactly one element.eslint-plugin-vue -->
 
@@ -31,8 +32,10 @@ Validate vue-html <template> using eslint-plugin-vue -->
 </template>
 
 <script>
+import Modal from './components/Modal.vue';
 export default {
   name: 'App',
+  components: { Modal },
   data() {
     return {
       title: 'My First Vue App :)',
