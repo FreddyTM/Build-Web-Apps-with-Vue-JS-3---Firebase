@@ -31,16 +31,38 @@ Validate vue-html <template> using eslint-plugin-vue -->
   <!-- <input type="text" ref="name" />
   <button @click="handleClick">click me</button> -->
 
-  <!-- Use of Proos to pass data into the components -->
-  <!-- <Modal header="Sign up for the Giveaway" text="Grab your ninja swag for half the price! " /> -->
-  <!-- But it's better to bind the attributes -->
-  <!-- <Modal header="Sign up for the Giveaway" text="Grab your ninja swag for half the price!" /> -->
   <div v-if="showModal">
-    <Modal :header="header" :text="text" theme="sale" @close="toggleModal" />
-    <!-- the close event fires the function, but @close="toggleModal affects also the modal, because is inside the backdrop.
-    So we need a click event modifier to customize when we want the event to be fired -->
+    <!-- Use of Props to pass data into the components -->
+    <!-- <Modal header="Sign up for the Giveaway" text="Grab your ninja swag for half the price! " /> -->
+    <!-- But it's better to bind the attributes -->
+    <!-- <Modal :header="header" :text="text" theme="sale" @close="toggleModal" /> -->
+    <!-- with props you can only pass simple data, like strings or numbers -->
+    <!-- to pass complex data, we use slots -->
+    <Modal theme="sale" @close="toggleModal">
+      <!-- the slot it's a template, a sort of subcomponent -->
+      <!-- whatever we put into the app's modal tag will go into the component's slot tag -->
+      <h1>Ninja Giveaway!</h1>
+      <p>Grab your ninja swag for half the price!</p>
+      <p>Bonus</p>
+      <!-- if we need a special structure to go in the slot, we have to use named slots -->
+      <!-- we can create them anywhere inside the component tag, and give them a name, in this case 'links' -->
+      <!-- named slots WON'T GO into the component's slot tag -->
+      <template v-slot:links>
+        <a href="#">Sign up now</a>
+        <a href="#">More info</a>
+      </template>
+    </Modal>
   </div>
+  <div v-if="showModalTwo">
+    <Modal theme="" @close="toggleModalTwo">
+      <h1>Sign up for the newsletter</h1>
+      <p>For updates and promo codes</p>
+    </Modal>
+  </div>
+  <!-- the close event fires the function, but @close="toggleModal affects also the modal, because is inside the backdrop.
+    So we need a click event modifier to customize when we want the event to be fired -->
   <button @click="toggleModal">Show modal</button>
+  <button @click="toggleModalTwo">Show modal 2</button>
 </template>
 
 <script>
@@ -54,6 +76,7 @@ export default {
       header: 'Sign up for the Giveaway',
       text: 'Grab your ninja swag for half the price!',
       showModal: false,
+      showModalTwo: false,
     };
   },
   methods: {
@@ -64,6 +87,9 @@ export default {
     },
     toggleModal() {
       this.showModal = !this.showModal;
+    },
+    toggleModalTwo() {
+      this.showModalTwo = !this.showModalTwo;
     },
   },
 };
