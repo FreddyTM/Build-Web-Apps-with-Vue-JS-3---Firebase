@@ -59,6 +59,12 @@ Validate vue-html <template> using eslint-plugin-vue -->
       <p>For updates and promo codes</p>
     </Modal>
   </div>
+  <!-- this modal will teleport to index.html outside de app div and into the modals div -->
+  <teleport to=".modals" v-if="showModal">
+    <Modal @close="toggleModal">
+      <h2>I'm a teleported modal outside de app div</h2>
+    </Modal>
+  </teleport>
   <!-- the close event fires the function, but @close="toggleModal affects also the modal, because is inside the backdrop.
     So we need a click event modifier to customize when we want the event to be fired -->
   <button @click="toggleModal">Show modal</button>
@@ -96,7 +102,8 @@ export default {
 </script>
 
 <style>
-#app {
+#app,
+.modals {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
