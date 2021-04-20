@@ -1,11 +1,17 @@
 <template>
   <div class="backdrop">
-    <div class="modal">
-      <h1>Modal Title</h1>
-      <p>modal content</p>
+    <div class="modal" :class="{ sale: theme === 'sale' }">
+      <h1>{{ header }}</h1>
+      <p>{{ text }}</p>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  props: ['header', 'text', 'theme'],
+};
+</script>
 
 <!-- <style scoped></style> Styles only affect this component, otherwise styles will affect all components-->
 <!-- Never add <style scoped> to the root component, or its styles won't work anywhere else in the app -->
@@ -44,5 +50,12 @@ h1 {
 }
 .modal p {
   font-style: normal;
+}
+.modal.sale {
+  background: crimson;
+  color: white;
+}
+.modal.sale h1 {
+  color: white;
 }
 </style>

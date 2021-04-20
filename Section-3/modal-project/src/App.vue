@@ -1,12 +1,7 @@
-<template>
-  <h1>{{ title }}</h1>
-  <!-- <input type="text" ref="name" />
-  <button @click="handleClick">click me</button> -->
-  <Modal />
-  <!-- [vue/no-multiple-template-root]
+<!-- [vue/no-multiple-template-root]
 The template root requires exactly one element.eslint-plugin-vue -->
 
-  <!-- Ok I finally got it to work.
+<!-- Ok I finally got it to work.
 I would suggest adding something to the docs for this:
 
 First install eslint and eslint-plugin-vue locally:
@@ -26,9 +21,20 @@ module.exports = {
   plugins: ['vue'],
 } -->
 
-  <!-- Another option is to turn off this Vetur setting:
+<!-- Another option is to turn off this Vetur setting:
 Vetur > Validation: Template
 Validate vue-html <template> using eslint-plugin-vue -->
+
+<template>
+  <h1>{{ title }}</h1>
+  <!-- <input type="text" ref="name" />
+  <button @click="handleClick">click me</button> -->
+
+  <!-- Use of Proos to pass data into the components -->
+  <!-- <Modal header="Sign up for the Giveaway" text="Grab your ninja swag for half the price! " /> -->
+  <!-- But it's better to bind the attributes -->
+  <!-- <Modal header="Sign up for the Giveaway" text="Grab your ninja swag for half the price!" /> -->
+  <Modal :header="header" :text="text" theme="sale" />
 </template>
 
 <script>
@@ -39,6 +45,8 @@ export default {
   data() {
     return {
       title: 'My First Vue App :)',
+      header: 'Sign up for the Giveaway',
+      text: 'Grab your ninja swag for half the price!',
     };
   },
   methods: {
