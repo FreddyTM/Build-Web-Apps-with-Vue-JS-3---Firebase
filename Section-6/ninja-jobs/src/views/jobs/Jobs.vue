@@ -1,7 +1,10 @@
 <template>
   <h1>Jobs</h1>
-  <div v-for="job in jobs" :key="job.id">
-    <h2>{{ job.title }}</h2>
+  <div v-for="job in jobs" :key="job.id" class="job">
+    <!-- param id is passed to the JobDetails component as a prop -->
+    <router-link :to="{ name: 'JobDetails', params: { id: job.id } }">
+      <h2 class="xxx">{{ job.title }}</h2>
+    </router-link>
   </div>
 </template>
 
@@ -19,4 +22,20 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.job h2 {
+  background: #f4f4f4;
+  padding: 20px;
+  border-radius: 10px;
+  margin: 10px auto;
+  max-width: 600px;
+  cursor: pointer;
+  color: #444;
+}
+.job h2:hover {
+  background: #ddd;
+}
+.job a {
+  text-decoration: none;
+}
+</style>
