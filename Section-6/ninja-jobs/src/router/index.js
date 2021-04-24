@@ -15,6 +15,9 @@ const routes = [
     path: '/about',
     name: 'About',
     component: About,
+    /* To lazy load a component, first we don't import the route with a static import. Then we create a function that does the import.
+    That way the component is only loaded once it's been accessed for the first time
+    component: () => import('../views/About.vue')*/
   },
   {
     path: '/jobs',

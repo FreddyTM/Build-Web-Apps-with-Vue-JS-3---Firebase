@@ -4,9 +4,32 @@
     <router-link :to="{ name: 'About' }">About</router-link>
     <router-link :to="{ name: 'Jobs' }">Jobs</router-link>
   </div>
+  <button @click="redirect">Redirect</button>
+  <button @click="back">Go Back</button>
+  <button @click="forward">Go Forward</button>
   <!-- any route selected will be injected where the <router-view> tag is -->
   <router-view />
 </template>
+
+<script>
+export default {
+  methods: {
+    redirect() {
+      /* Send to an specific route */
+      this.$router.push({ name: 'Home' });
+    },
+    back() {
+      /* Move back in browser's history by one step */
+      this.$router.go(-1);
+    },
+    forward() {
+      /* Move forward in browser's history by one step */
+      this.$router.go(1);
+    },
+  },
+  data() {},
+};
+</script>
 
 <style>
 #app {
@@ -32,5 +55,11 @@
 #nav a.router-link-exact-active {
   color: white;
   background: crimson;
+}
+button {
+  margin: 0 10px;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
 }
 </style>
