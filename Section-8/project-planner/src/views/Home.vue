@@ -1,10 +1,9 @@
 <template>
   <div class="home">
-    Home
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
         <!-- <p>{{ project.title }}</p> -->
-        <SingleProject :project="project" @delete="handleDelete" />
+        <SingleProject :project="project" @delete="handleDelete" @complete="handleComplete" />
       </div>
     </div>
   </div>
@@ -26,6 +25,11 @@ export default {
     /* The id argument comes from the data passed with the event emitted from the SingleProject component */
     handleDelete(id) {
       this.projects = this.projects.filter((project) => id !== project.id);
+    },
+    handleComplete(id) {
+      let p = this.projects.find((project) => project.id === id);
+      p.complete = !p.complete;
+      console.log(`Project ${p.id} complete: ${p.complete}`);
     },
   },
   mounted() {

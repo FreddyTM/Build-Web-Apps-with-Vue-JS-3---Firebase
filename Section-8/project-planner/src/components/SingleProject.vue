@@ -1,11 +1,11 @@
 <template>
-  <div class="project">
+  <div class="project" :class="{ complete: project.complete }">
     <div class="actions">
-      <h3 @click="toggleCompleted">{{ project.title }}</h3>
+      <h3 @click="showDetails = !showDetails">{{ project.title }}</h3>
       <div class="icons">
         <span class="material-icons" @click="">edit</span>
         <span class="material-icons" @click="deleteProject">delete</span>
-        <span class="material-icons" @click="">done</span>
+        <span class="material-icons tick" @click="toggleComplete">done</span>
       </div>
     </div>
     <div v-if="showDetails" class="details">
@@ -19,16 +19,23 @@ export default {
   props: ['project'],
   data() {
     return {
-      /* completed: this.project.complete, */
       showDetails: false,
+      /* The route to the specific SingleProject */
       uri: 'http://localhost:3000/projects/' + this.project.id,
     };
   },
   methods: {
-    toggleCompleted() {
-      this.showDetails = !this.showDetails;
-      console.log(this.showDetails);
+    /* Updating the project (complete property) in db.json */
+    toggleComplete() {
+      fetch(this.uri, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ complete: !this.project.complete }),
+      })
+        .then(() => this.$emit('complete', this.project.id))
+        .catch((err) => console.log(err.message));
     },
+    /* Deleting the project from db.json */
     deleteProject() {
       fetch(this.uri, { method: 'DELETE' })
         .then(() => this.$emit('delete', this.project.id))
@@ -63,5 +70,12 @@ h3 {
 }
 .material-icons:hover {
   color: #777;
+}
+.complete {
+  border-left: 10px solid lightgreen;
+}
+.project.complete .tick {
+  color: lightgreen;
+  font-weight: bold;
 }
 </style>
