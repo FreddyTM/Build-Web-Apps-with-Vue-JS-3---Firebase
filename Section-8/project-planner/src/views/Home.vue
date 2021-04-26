@@ -33,6 +33,8 @@ export default {
     },
   },
   mounted() {
+    /* 'http://localhost:3000/projects' is the endpoint to db.json. It's given by json-server by typing
+    json-server --watch data/db.json in the console */
     fetch('http://localhost:3000/projects')
       .then((res) => res.json())
       .then((data) => (this.projects = data))

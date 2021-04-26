@@ -11,6 +11,12 @@
       "title": "Make marketing email",
       "details": "Lorem ipsum",
       "complete": false
+    },
+    {
+      "title": "Make a new website",
+      "details": "blah, blah, blah",
+      "complete": true,
+      "id": 3
     }
   ]
 }
