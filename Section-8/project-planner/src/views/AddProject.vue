@@ -12,7 +12,6 @@
 export default {
   data() {
     return {
-      uri: 'http://localhost:3000/projects',
       title: '',
       details: '',
     };
@@ -26,13 +25,13 @@ export default {
         complete: false,
       };
       console.log(project);
-      fetch(this.uri, {
+      fetch('http://localhost:3000/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(project),
       })
-        /* Equivalent to -> .then(this.$router.push('/')); */
-        .then(this.$router.push({ name: 'Home' }))
+        /* Equivalent to -> .then(this.$router.push({ name: 'Home' })) */
+        .then(() => this.$router.push('/'))
         .catch((err) => console.log(err.message));
     },
   },
