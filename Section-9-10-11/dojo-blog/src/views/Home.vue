@@ -12,6 +12,7 @@
 </template>
 
 <script>
+// composable imports
 import getPosts from '../composables/getPosts.js';
 
 // component imports
@@ -25,7 +26,7 @@ export default {
     const { posts, error, load } = getPosts();
 
     load();
-
+    console.log(posts.value);
     return { posts, error };
   },
 };
