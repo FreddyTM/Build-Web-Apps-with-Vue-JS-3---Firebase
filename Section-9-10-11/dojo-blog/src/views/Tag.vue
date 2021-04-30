@@ -29,9 +29,12 @@ export default {
     const route = useRoute();
     const { posts, error, load } = getPosts();
     load();
-    const tagValue = route.params.tag;
+    /* const tagValue = route.params.tag; */
+    let tagValue = route.params.tag;
     const postsWithTag = computed(() => {
-      return posts.value.filter((post) => post.tags.includes(tagValue));
+      /* It's not possible to use a const or variable to set the route tag, because it doesn't update */
+      /* return posts.value.filter((post) => post.tags.includes(tagValue)); */
+      return posts.value.filter((post) => post.tags.includes(route.params.tag));
     });
     /* const postsWithTag = posts.value.filter((post) => post.tags.includes(routes.params.tag)); */
     /* const postsWithTag = computed(() => posts.filter((post) => post.tags.includes(route.params.tag))); */
