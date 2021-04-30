@@ -1,11 +1,14 @@
 <template>
-  <h1>List of posts with tag #{{ tagValue }}</h1>
-  <div v-if="error">{{ error }}</div>
-  <div v-if="posts.length">
-    <PostList :posts="postsWithTag" />
-  </div>
-  <div v-else>
-    <Spinner />
+  <!--   <h1>List of posts with tag #{{ tagValue }}</h1> -->
+  <div class="tag">
+    <div v-if="error">{{ error }}</div>
+    <div v-if="posts.length" class="layout">
+      <PostList :posts="postsWithTag" />
+      <TagCloud :posts="posts" />
+    </div>
+    <div v-else>
+      <Spinner />
+    </div>
   </div>
 </template>
 
@@ -17,14 +20,15 @@ import getPosts from '../composables/getPosts.js';
 // component imports
 import PostList from '../components/PostList.vue';
 import Spinner from '../components/Spinner.vue';
+import TagCloud from '../components/TagCloud.vue';
 
 export default {
   /*   props: ['tag'], */
-  components: { PostList, Spinner },
+  components: { PostList, Spinner, TagCloud },
   setup(props) {
+    const route = useRoute();
     const { posts, error, load } = getPosts();
     load();
-    const route = useRoute();
     const tagValue = route.params.tag;
     const postsWithTag = computed(() => {
       return posts.value.filter((post) => post.tags.includes(tagValue));
@@ -44,4 +48,10 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.tag {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+</style>

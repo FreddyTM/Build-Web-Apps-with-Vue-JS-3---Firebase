@@ -12,21 +12,16 @@
 </template>
 
 <script>
-// modules imports
-import { useRoute } from 'vue-router';
 import { computed } from 'vue';
 
 export default {
   props: ['post'],
   setup(props) {
-    const route = useRoute();
-    /* console.log(route); */
-
     const snippet = computed(() => {
       return props.post.body.substring(0, 100) + '...';
     });
 
-    return { snippet, route };
+    return { snippet };
   },
 };
 </script>
