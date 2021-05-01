@@ -23,6 +23,7 @@
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { projectFirestore } from '../firebase/config';
 
 export default {
   setup() {
@@ -63,7 +64,12 @@ export default {
         body: body.value,
         tags: tags.value,
       };
-      try {
+
+      //firebase will generate the id automatically
+      const res = await projectFirestore.collection('posts').add(newPost);
+      router.push({ name: 'Home' });
+
+      /*    try {
         const data = await fetch('http://localhost:3000/posts', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
@@ -73,9 +79,8 @@ export default {
           throw Error('Impossible to create the post');
         }
         router.push({ name: 'Home' });
-      } catch (error) {
-        /* console.log(error.message); */
-      }
+        } catch (error) {
+      } */
     };
 
     return { body, title, tags, tag, handleKeydown, handleSubmit };
