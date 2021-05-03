@@ -8,7 +8,10 @@ const getPosts = () => {
   const load = async () => {
     try {
       //Fetching data from firestore database. We'll get the posts collection
-      const res = await projectFirestore.collection('posts').get();
+      const res = await projectFirestore
+        .collection('posts')
+        .orderBy('createdAt', 'desc')
+        .get();
       /* console.log(res.docs); */
       //Extracting data from the posts collection of the firestore database.
       //We'll assign the data to the posts attribute
