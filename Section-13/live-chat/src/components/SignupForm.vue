@@ -12,7 +12,7 @@
 import { ref } from 'vue';
 import useSignup from '../composables/useSignup';
 export default {
-  setup() {
+  setup(props, context) {
     const { error, signup } = useSignup();
     // refs
     const displayName = ref('');
@@ -20,8 +20,14 @@ export default {
     const password = ref('');
 
     const handleSubmit = async () => {
-      signup(email.value, password.value, displayName.value);
-      console.log('User signed up');
+      await signup(email.value, password.value, displayName.value);
+      if (!error.value) {
+        console.log('User signed up');
+        /* Instead of this.$emit() from the options API, we emit an event with context.emit() */
+        /* the setup() function doesn't have access to this (composition API) */
+        /* the data() function from the options API does have access to this */
+        context.emit('signup');
+      }
     };
 
     return { displayName, email, password, handleSubmit, error };

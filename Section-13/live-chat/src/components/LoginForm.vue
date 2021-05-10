@@ -12,7 +12,8 @@ import { ref } from 'vue';
 import useLogin from '../composables/useLogin';
 
 export default {
-  setup() {
+  /* The context object allow us to methods & properties that we can use inside the component*/
+  setup(props, context) {
     const { error, login } = useLogin();
     // refs
     const email = ref('');
@@ -22,6 +23,10 @@ export default {
       await login(email.value, password.value);
       if (!error.value) {
         console.log('User logged in');
+        /* Instead of this.$emit() from the options API, we emit an event with context.emit() */
+        /* the setup() function doesn't have access to this (composition API) */
+        /* the data() function from the options API does have access to this */
+        context.emit('login');
       }
     };
 
