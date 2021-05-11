@@ -1,4 +1,4 @@
-import { ref } from '@vue/reactivity';
+import { ref } from 'vue';
 import { projectAuth, projectFirestore } from '../firebase/config';
 
 /* Initial value of user is the user logged in, or null if there's not any user */

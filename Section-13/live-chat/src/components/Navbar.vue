@@ -12,7 +12,8 @@
 import useLogout from '../composables/useLogout';
 import getUser from '../composables/getUser';
 export default {
-  setup(props, context) {
+  /* setup(props, context) { */
+  setup() {
     const { error, logout } = useLogout();
     const { user } = getUser();
 
