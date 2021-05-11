@@ -12,7 +12,7 @@
 import useLogout from '../composables/useLogout';
 import getUser from '../composables/getUser';
 export default {
-  setup() {
+  setup(props, context) {
     const { error, logout } = useLogout();
     const { user } = getUser();
 
@@ -20,6 +20,7 @@ export default {
       await logout();
       if (!error.value) {
         console.log('User logged out');
+        /* context.emit('logout'); */
       }
     };
 

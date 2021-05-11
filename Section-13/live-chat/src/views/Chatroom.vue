@@ -2,13 +2,35 @@
   <p>Chatroom</p>
   <div class="container">
     <Navbar />
+    <!-- <Navbar @logout="redirect" /> -->
   </div>
 </template>
 
 <script>
+import { watch } from 'vue';
+import { useRouter } from 'vue-router';
+
 import Navbar from '../components/Navbar';
+import getUser from '../composables/getUser';
 export default {
   components: { Navbar },
+  setup() {
+    const { user } = getUser();
+    const router = useRouter();
+
+    /* If the user is logged out, we go back to the welcome page */
+    watch(user, () => {
+      if (!user.value) {
+        router.push({ name: 'Welcome' });
+      }
+    });
+    /* We can do the same emmiting an event from the Navbar (where the logout is triggered),
+    and then calling the redirect() function to go back to Welcome
+    const redirect = () => {
+      router.push({ name: 'Welcome' });
+    };
+    return { redirect }; */
+  },
 };
 </script>
 
