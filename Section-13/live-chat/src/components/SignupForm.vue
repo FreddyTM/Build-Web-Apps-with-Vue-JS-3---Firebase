@@ -1,6 +1,6 @@
 <template>
   <form @submit.prevent="handleSubmit">
-    <input type="text" required placeholder="display name" v-model="displayName" />
+    <input type="text" required placeholder="display name" v-model="displayName" ref="getFocus" />
     <input type="email" required placeholder="email" v-model="email" />
     <input type="password" required placeholder="password" v-model="password" />
     <div class="error">{{ error }}</div>
@@ -31,6 +31,9 @@ export default {
     };
 
     return { displayName, email, password, handleSubmit, error };
+  },
+  mounted() {
+    this.$refs.getFocus.focus();
   },
 };
 </script>

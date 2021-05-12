@@ -1,6 +1,7 @@
 <template>
   <form>
     <textarea
+      ref="getFocus"
       placeholder="Type a message and hit enter to send"
       v-model="message"
       @keypress.enter.prevent="handleSubmit"
@@ -35,6 +36,9 @@ export default {
       }
     };
     return { message, handleSubmit, error };
+  },
+  mounted() {
+    this.$refs.getFocus.focus();
   },
 };
 </script>
