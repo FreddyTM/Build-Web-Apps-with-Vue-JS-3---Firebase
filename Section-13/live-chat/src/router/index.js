@@ -18,11 +18,25 @@ const requireAuth = (to, from, next) => {
   }
 };
 
+/* Authentication guard
+If the user is already logged in, redirect them to the chat room and not to the Welcome page */
+const requireNoAuth = (to, from, next) => {
+  let user = projectAuth.currentUser;
+  /* If no user is logged in, back to the Welcome page */
+  if (user) {
+    next({ name: 'Chatroom' });
+  } else {
+    /* We need to call next() to effectively go to the route. Without it, it'll never go */
+    next();
+  }
+};
+
 const routes = [
   {
     path: '/',
     name: 'Welcome',
     component: Welcome,
+    beforeEnter: requireNoAuth,
   },
   {
     path: '/chatroom',

@@ -13,7 +13,7 @@ import NewChatForm from '../components/NewChatForm.vue';
 import Navbar from '../components/Navbar.vue';
 import ChatWindow from '../components/ChatWindow.vue';
 import getUser from '../composables/getUser';
-import { watch } from 'vue';
+import { onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
 export default {

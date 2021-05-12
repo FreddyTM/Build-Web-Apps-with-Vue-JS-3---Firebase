@@ -1,4 +1,4 @@
-import { ref } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { projectFirestore } from '../firebase/config';
 
 const getCollection = (collection) => {
@@ -8,7 +8,7 @@ const getCollection = (collection) => {
   let collectionRef = projectFirestore.collection(collection).orderBy('createdAt');
 
   /* onSnapshot() doesn't work with a try-catch block. It uses two callback functions, one for success & one for error */
-  collectionRef.onSnapshot(
+  const unsub = collectionRef.onSnapshot(
     (snap) => {
       let results = [];
       /* In order to get the data stored in the database, we need to call doc.data().createdAt. This means that the data comes from the database
@@ -28,6 +28,15 @@ const getCollection = (collection) => {
       error.value = 'Could not fetch the data';
     }
   );
+
+  /* Stop creating snapshots when the component is no longer visible.
+  The callback function will be fired everytime there's a change in the properties inside the funciton
+  The onInvalidate function will run when the component unmounts, so we don't need no more snapshots from the database.
+  We then unsuscribe from the onSnapshot() listener*/
+  watchEffect((onInvalidate) => {
+    // unsub from prev collection when watcher is stopped (component unmounted)
+    onInvalidate(() => unsub());
+  });
 
   return { documents, error };
 };
